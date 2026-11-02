@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="日常场景教学包 · 10 个生活场景：点餐、超市、药店、看医生、银行、电话预约、问路乘车、租房、学校沟通、紧急情况。英中对照，教练可直接发放使用。">
+<title>日常场景教学包 · 10 个生活场景</title>
+<style>
+:root{
+  --paper:#f4f1ea;
+  --card:#fffdf8;
+  --ink:#1c1917;
+  --ink-2:#44403c;
+  --muted:#78716c;
+  --line:#e2dcd0;
+  --brand:#0f5c5c;
+  --brand-soft:#e6f0ef;
+  --accent:#a2521a;
+  --accent-soft:#fbeee2;
+  --gold:#b8860b;
+  --radius:14px;
+  --shadow:0 1px 2px rgba(28,25,23,.05), 0 8px 24px -12px rgba(28,25,23,.18);
+  --maxw:960px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  font-size:16px;line-height:1.75;-webkit-font-smoothing:antialiased;
+}
+a{color:var(--brand);text-decoration:none;border-bottom:1px solid rgba(15,92,92,.28)}
+a:hover{border-bottom-color:var(--brand)}
+h1,h2,h3,h4{margin:0;line-height:1.35;letter-spacing:-.01em}
+p{margin:0 0 .9em}
+ul,ol{margin:0 0 .9em;padding-left:1.4em}
+li{margin:.3em 0}
+strong{font-weight:700}
+hr{border:0;border-top:1px solid var(--line);margin:2.4em 0}
+
+/* ---------- top bar ---------- */
+.progress-track{position:fixed;top:0;left:0;right:0;height:3px;background:transparent;z-index:60}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--gold));transition:width .12s linear}
+.topbar{
+  position:sticky;top:0;z-index:50;background:rgba(244,241,234,.92);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+.topbar-in{max-width:var(--maxw);margin:0 auto;padding:.55rem 1.25rem;display:flex;align-items:center;gap:1rem}
+.brand{font-weight:800;font-size:.9rem;letter-spacing:.02em;color:var(--brand);white-space:nowrap}
+.brand span{color:var(--muted);font-weight:500}
+.navlinks{display:flex;gap:.15rem;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.navlinks::-webkit-scrollbar{display:none}
+.navlinks a{
+  border:0;font-size:.78rem;color:var(--ink-2);padding:.28rem .55rem;border-radius:99px;white-space:nowrap;
+}
+.navlinks a:hover{background:var(--brand-soft);color:var(--brand)}
+.pill-progress{
+  font-size:.72rem;font-variant-numeric:tabular-nums;color:var(--brand);font-weight:700;
+  background:var(--brand-soft);padding:.28rem .6rem;border-radius:99px;white-space:nowrap;
+}
+.btn-print{
+  border:1px solid var(--line);background:var(--card);color:var(--ink-2);cursor:pointer;
+  font-size:.76rem;padding:.3rem .7rem;border-radius:99px;font-family:inherit;white-space:nowrap;
+}
+.btn-print:hover{border-color:var(--brand);color:var(--brand)}
+
+/* ---------- hero ---------- */
+.hero{
+  background:
+    radial-gradient(900px 380px at 12% -10%,rgba(15,92,92,.55),transparent 60%),
+    radial-gradient(700px 340px at 92% 8%,rgba(162,82,26,.35),transparent 65%),
+    #12211f;
+  color:#f6f2e9;padding:4.2rem 1.25rem 3.4rem;
+}
+.hero-in{max-width:var(--maxw);margin:0 auto}
+.kicker{
+  display:inline-flex;align-items:center;gap:.5rem;font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;color:#c9d9d4;border:1px solid rgba(201,217,212,.3);
+  padding:.32rem .7rem;border-radius:99px;margin-bottom:1.4rem;
+}
+.kicker i{width:6px;height:6px;border-radius:50%;background:var(--gold);display:block}
+.hero h1{font-size:clamp(1.9rem,5.2vw,3.1rem);font-weight:800;letter-spacing:-.02em}
+.hero h1 small{display:block;font-size:clamp(.95rem,2.2vw,1.15rem);font-weight:500;letter-spacing:.02em;color:#a8bfb9;margin-top:.7rem}
+.hero p.lede{max-width:44em;color:#d7e0dc;margin-top:1.4rem;font-size:.97rem}
+.meta{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.8rem}
+.meta div{
+  border:1px solid rgba(246,242,233,.22);border-radius:10px;padding:.5rem .8rem;
+  font-size:.78rem;color:#e8e2d6;background:rgba(255,255,255,.04)
+}
+.meta b{display:block;font-size:1.15rem;color:#fff;font-weight:800;font-variant-numeric:tabular-nums}
+
+/* ---------- layout ---------- */
+main{max-width:var(--maxw);margin:0 auto;padding:0 1.25rem 4rem}
+section{scroll-margin-top:70px}
+.sec-head{display:flex;align-items:baseline;gap:.8rem;margin:3.2rem 0 1.2rem}
+.sec-num{
+  font-size:.72rem;font-weight:800;letter-spacing:.12em;color:var(--accent);
+  border-top:2px solid var(--accent);padding-top:.3rem;
+}
+.sec-head h2{font-size:1.32rem;font-weight:800}
+.sec-head h2 em{font-style:normal;color:var(--muted);font-weight:500;font-size:.86rem;margin-left:.5rem;letter-spacing:.02em}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.pad{padding:1.4rem 1.5rem}
+
+/* ---------- how to use ---------- */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:720px){.two-col{grid-template-columns:1fr}}
+.box-title{display:flex;align-items:center;gap:.55rem;font-weight:800;font-size:.95rem;margin-bottom:.9rem}
+.tag{font-size:.68rem;font-weight:700;letter-spacing:.06em;padding:.16rem .5rem;border-radius:5px;background:var(--brand-soft);color:var(--brand)}
+.tag.warm{background:var(--accent-soft);color:var(--accent)}
+table{width:100%;border-collapse:collapse;font-size:.88rem}
+th,td{text-align:left;padding:.5rem .6rem;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:.72rem;letter-spacing:.06em;color:var(--muted);font-weight:700;text-transform:uppercase;border-bottom:1px solid var(--ink)}
+tbody tr:last-child td{border-bottom:0}
+td.num{font-variant-numeric:tabular-nums;color:var(--muted);width:2.2em}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* disciplines */
+.rules{display:grid;gap:.8rem;margin-top:1rem}
+.rule{display:grid;grid-template-columns:2.2rem 1fr;gap:.9rem;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem}
+.rule .n{
+  font-size:.95rem;font-weight:800;color:var(--brand);background:var(--brand-soft);
+  width:2.2rem;height:2.2rem;border-radius:50%;display:grid;place-items:center;
+}
+.rule b{display:block;margin-bottom:.15rem}
+.rule p{margin:0;font-size:.9rem;color:var(--ink-2)}
+
+/* rescue sentences */
+.rescue{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.7rem;margin:1rem 0 .4rem}
+.rescue-card{
+  background:linear-gradient(180deg,#fffdf8,#fbf7ee);border:1px solid var(--line);
+  border-left:3px solid var(--gold);border-radius:10px;padding:.85rem 1rem;
+}
+.rescue-card .en{font-weight:700;font-size:.95rem;color:var(--ink)}
+.rescue-card .cn{font-size:.82rem;color:var(--muted);margin-top:.15rem}
+
+/* ---------- overview table ---------- */
+.overview td .stars{letter-spacing:.1em;color:var(--gold);font-size:.8rem}
+.overview td .scene-cell b{display:block}
+.overview td .scene-cell span{font-size:.76rem;color:var(--muted)}
+.overview tr:hover td{background:rgba(15,92,92,.03)}
+.overview a{border:0;color:inherit}
+.overview a:hover{color:var(--brand)}
+.note{
+  border-left:3px solid var(--accent);background:var(--accent-soft);
+  padding:.9rem 1.1rem;border-radius:0 10px 10px 0;font-size:.88rem;color:#5c3416;
+}
+
+/* ---------- scenario ---------- */
+.scn{margin-top:1.6rem;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.scn-head{
+  display:flex;align-items:center;gap:1rem;padding:1.2rem 1.5rem;
+  background:linear-gradient(180deg,#fbf8f1,#fffdf8);border-bottom:1px solid var(--line);
+}
+.scn-badge{
+  flex:0 0 auto;width:2.6rem;height:2.6rem;border-radius:10px;background:var(--brand);color:#fff;
+  display:grid;place-items:center;font-weight:800;font-size:1.05rem;font-variant-numeric:tabular-nums;
+  box-shadow:0 6px 14px -8px rgba(15,92,92,.9);
+}
+.scn-head h3{font-size:1.12rem;font-weight:800}
+.scn-head h3 span{display:block;font-size:.8rem;font-weight:500;color:var(--muted);letter-spacing:.03em;margin-top:.1rem}
+.scn-head .scn-meta{margin-left:auto;display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;justify-content:flex-end}
+.diff{font-size:.7rem;color:var(--gold);letter-spacing:.1em;white-space:nowrap}
+.done-pill{
+  display:none;font-size:.68rem;font-weight:700;color:var(--brand);background:var(--brand-soft);
+  padding:.2rem .55rem;border-radius:99px;white-space:nowrap
+}
+.scn.is-done .done-pill{display:inline-block}
+.scn-body{padding:1.3rem 1.5rem 1.5rem}
+.goal{font-size:.92rem;margin-bottom:1.1rem}
+.goal b{color:var(--accent)}
+
+.block-label{
+  font-size:.7rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin:1.5rem 0 .55rem;display:flex;align-items:center;gap:.5rem;
+}
+.block-label::after{content:"";flex:1;height:1px;background:var(--line)}
+
+.sent-table td.en{font-weight:600;width:42%}
+.sent-table td.cn{width:30%;color:var(--ink-2);font-size:.85rem}
+.sent-table td.use{font-size:.8rem;color:var(--muted)}
+
+/* prompt block */
+.prompt{
+  position:relative;background:#132a28;color:#dfeae6;border-radius:10px;
+  padding:.9rem 3.2rem .9rem 1rem;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.79rem;line-height:1.7;overflow-wrap:anywhere
+}
+.prompt .copy{
+  position:absolute;top:.55rem;right:.55rem;background:rgba(255,255,255,.1);color:#e8f2ee;
+  border:1px solid rgba(255,255,255,.22);border-radius:6px;font-size:.68rem;padding:.2rem .5rem;
+  cursor:pointer;font-family:inherit
+}
+.prompt .copy:hover{background:rgba(255,255,255,.2)}
+.prompt .copy.ok{background:#1f7a5a;border-color:#1f7a5a;color:#fff}
+
+.src-list{list-style:none;padding:0;margin:0;font-size:.86rem}
+.src-list li{padding:.3rem 0;display:flex;gap:.55rem;align-items:baseline}
+.src-list li::before{content:"↗";color:var(--brand);font-size:.8rem;flex:0 0 auto}
+
+/* checklist */
+.check-list{list-style:none;padding:0;margin:0;display:grid;gap:.4rem}
+.check-list li{display:flex;gap:.65rem;align-items:flex-start;padding:.5rem .7rem;border:1px solid var(--line);border-radius:9px;background:#fff;cursor:pointer;transition:.15s}
+.check-list li:hover{border-color:#cfc7b6}
+.check-list input{
+  appearance:none;-webkit-appearance:none;flex:0 0 auto;width:1.05rem;height:1.05rem;margin:.22rem 0 0;
+  border:1.5px solid #c9c2b2;border-radius:4px;cursor:pointer;position:relative;background:#fff
+}
+.check-list input:checked{background:var(--brand);border-color:var(--brand)}
+.check-list input:checked::after{
+  content:"";position:absolute;left:.3rem;top:.1rem;width:.3rem;height:.55rem;
+  border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)
+}
+.check-list li:has(input:checked){background:var(--brand-soft);border-color:#bcd6d3}
+.check-list li:has(input:checked) span{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(120,113,108,.5)}
+.check-list span{font-size:.88rem}
+
+.stuck{
+  margin-top:1.1rem;font-size:.85rem;color:#5c3416;background:var(--accent-soft);
+  border-radius:9px;padding:.7rem .9rem;display:flex;gap:.55rem
+}
+.stuck b{white-space:nowrap;color:var(--accent)}
+
+/* ---------- self assessment ---------- */
+.assess td.c{text-align:center;width:6.2rem}
+.assess input{appearance:none;-webkit-appearance:none;width:1.05rem;height:1.05rem;border:1.5px solid #c9c2b2;border-radius:4px;background:#fff;cursor:pointer;position:relative;vertical-align:middle}
+.assess input:checked{background:var(--brand);border-color:var(--brand)}
+.assess input:checked::after{content:"";position:absolute;left:.3rem;top:.05rem;width:.3rem;height:.55rem;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(42deg)}
+.assess tr.row-done td{background:rgba(15,92,92,.05)}
+.assess .scene-cell b{font-size:.88rem}
+
+/* ---------- resources ---------- */
+.res-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:.8rem}
+.res{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.25rem}
+.res b{font-size:.92rem}
+.res .url{font-size:.76rem;color:var(--brand);word-break:break-all}
+.res .what{font-size:.8rem;color:var(--muted)}
+.res a{margin-top:.35rem;font-size:.76rem;align-self:flex-start;border:0;background:var(--brand-soft);color:var(--brand);padding:.18rem .55rem;border-radius:99px;font-weight:600}
+.res a:hover{background:var(--brand);color:#fff}
+
+/* quote */
+blockquote{
+  margin:1.1rem 0;padding:1rem 1.2rem;background:var(--brand-soft);border-radius:10px;
+  font-size:.92rem;color:#10403f;border-left:3px solid var(--brand)
+}
+blockquote p:last-child{margin:0}
+.final-note{font-size:.82rem;color:var(--muted);text-align:center;margin-top:2.4rem;line-height:1.9}
+.footer{background:#12211f;color:#9db3ad;font-size:.75rem;padding:2rem 1.25rem;text-align:center}
+.footer b{color:#e8e2d6;display:block;margin-bottom:.3rem;letter-spacing:.05em}
+
+/* ---------- responsive: stacked sentence rows ---------- */
+@media(max-width:640px){
+  body{font-size:15px}
+  .pad{padding:1.1rem 1.1rem}
+  .scn-head{padding:1rem 1.1rem;gap:.75rem}
+  .scn-head .scn-meta{margin-left:0;width:100%;justify-content:flex-start}
+  .scn-head{flex-wrap:wrap}
+  .scn-body{padding:1.1rem 1.1rem 1.2rem}
+  .sent-table thead{display:none}
+  .sent-table, .sent-table tbody, .sent-table tr, .sent-table td{display:block;width:auto}
+  .sent-table tr{border:1px solid var(--line);border-radius:9px;padding:.5rem .7rem;margin-bottom:.45rem;background:#fff}
+  .sent-table td{border:0;padding:.15rem 0}
+  .sent-table td.num{font-size:.7rem;font-weight:700;color:var(--accent)}
+  .sent-table td.en, .sent-table td.cn, .sent-table td.use{width:auto}
+  .sent-table td.cn::before{content:"中文 · ";color:#a8a29e;font-size:.72rem}
+  .sent-table td.use::before{content:"用法 · ";color:#a8a29e;font-size:.72rem}
+  .assess th, .assess td{padding:.35rem .3rem;font-size:.78rem}
+  .assess td.c{width:3.6rem}
+  .navlinks{display:none}
+  .hero{padding:3rem 1.25rem 2.6rem}
+}
+
+/* ---------- print ---------- */
+@media print{
+  :root{--paper:#fff;--card:#fff;--shadow:none}
+  body{font-size:10.5pt;background:#fff}
+  .topbar,.progress-track,.prompt .copy,.btn-print,.navlinks{display:none!important}
+  .hero{background:#fff!important;color:#000;padding:0 0 1.2cm;border-bottom:2px solid #000}
+  .hero .kicker{color:#333;border-color:#999}
+  .hero h1 small,.hero p.lede{color:#333}
+  .meta div{border-color:#ccc;color:#333;background:none}
+  .meta b{color:#000}
+  .scn{break-inside:avoid;page-break-inside:avoid;page-break-before:always;box-shadow:none}
+  .scn:first-of-type{page-break-before:auto}
+  a{color:#000;border:0}
+  .card,.rule,.res{break-inside:avoid}
+  .scn-body{padding:0 0 0}
+  .scn-head{background:none}
+  .check-list li:has(input:checked){background:none}
+  .check-list li:has(input:checked) span{text-decoration:none;color:#000}
+  .footer{background:#fff;color:#333;border-top:1px solid #ccc}
+  main{padding-bottom:0}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-track"><div class="progress-bar" id="pbar"></div></div>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand">日常场景教学包 <span>· 10 场景</span></div>
+    <nav class="navlinks">
+      <a href="#how">使用说明</a>
+      <a href="#overview">场景总表</a>
+      <a href="#s1">01</a><a href="#s2">02</a><a href="#s3">03</a><a href="#s4">04</a><a href="#s5">05</a>
+      <a href="#s6">06</a><a href="#s7">07</a><a href="#s8">08</a><a href="#s9">09</a><a href="#s10">10</a>
+      <a href="#assess">自评</a>
+      <a href="#res">资源</a>
+    </nav>
+    <span class="pill-progress" id="pill">0 / 30</span>
+    <button class="btn-print" onclick="window.print()">打印 / 存 PDF</button>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="hero-in">
+    <div class="kicker"><i></i>Daily Life Scenario Pack</div>
+    <h1>日常场景教学包<small>Daily Life Scenario Pack — 10 Situations</small></h1>
+    <p class="lede">面向零基础成人学员（来自中国大陆，四十岁上下）｜英中对照｜教练可直接发放使用。<br>
+      每个场景一周，只验收"这件事办成没办成"，不验收"记住多少单词"。</p>
+    <div class="meta">
+      <div><b>10</b>个生活场景</div>
+      <div><b>50</b>个核心句型</div>
+      <div><b>15</b>分钟／天</div>
+      <div><b>1</b>周／场景</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ================= 1. 使用说明 ================= -->
+<section id="how">
+  <div class="sec-head"><div class="sec-num">01</div><h2>这份材料怎么用<em>How to use</em></h2></div>
+
+  <div class="two-col">
+    <div class="card pad">
+      <div class="box-title"><span class="tag">教练版</span>一个场景 = 一周</div>
+      <table>
+        <thead><tr><th>时间</th><th>做什么</th><th>时长</th></tr></thead>
+        <tbody>
+          <tr><td>第 1 次课</td><td>讲 5 个核心句型，逐句带读，纠正发音</td><td>90 分钟</td></tr>
+          <tr><td>第 2 次课</td><td>角色扮演，教练演对方，学员演自己</td><td>90 分钟</td></tr>
+          <tr><td>周一至周五</td><td>每天听一遍素材 + 跟读 + 录音回传</td><td>15 分钟/天</td></tr>
+          <tr><td>周末</td><td>验收：不用中文把这件事办成</td><td>10 分钟</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card pad">
+      <div class="box-title"><span class="tag warm">学员版</span>每天 15 分钟</div>
+      <ol style="font-size:.9rem;margin-bottom:.6rem">
+        <li><strong>听一遍</strong>：打开素材链接，不看文字，只听。听不懂正常，抓你认识的词。</li>
+        <li><strong>跟读三遍</strong>：看着文稿，一句一句跟着读出声。第一遍慢，第二遍正常，第三遍尽量像原声。</li>
+        <li><strong>录一遍</strong>：用手机录下自己读完的一遍，发给教练。</li>
+        <li><strong>记一笔</strong>：生词记"单词 + 它所在的那一整句"，不要只记单词。</li>
+      </ol>
+      <p style="font-size:.86rem;color:var(--muted);margin:0">一句话：<strong style="color:var(--ink)">听不懂也要听完，说不出也要说完。</strong></p>
+    </div>
+  </div>
+
+  <div class="block-label">三条教学纪律</div>
+  <div class="rules">
+    <div class="rule"><div class="n">1</div><div><b>只验收"办成没办成"，不验收"记住多少"。</b>
+      <p>学员能磕磕巴巴把咖啡点出来，就算过；背得出十个单词但开不了口，不算过。</p></div></div>
+    <div class="rule"><div class="n">2</div><div><b>句型必须整句背，不许拆成单词背。</b>
+      <p>学员说 <em>I want coffee</em> 能懂，但说 <em>Could I get a coffee, please?</em> 才不会被店员反问。背"话块"（chunk），不背词表。</p></div></div>
+    <div class="rule"><div class="n">3</div><div><b>允许说错，不允许不说。</b>
+      <p>卡住的时候不纠语法，先让他把意思送出去，课后再修。</p></div></div>
+  </div>
+
+  <div class="block-label">万能救场句 · 第一节课就要教</div>
+  <p style="font-size:.9rem;color:var(--ink-2)">这五句能解决八成的沟通中断，比多背五十个单词有用：</p>
+  <div class="rescue">
+    <div class="rescue-card"><div class="en">Sorry, could you say that again?</div><div class="cn">抱歉，能再说一遍吗？</div></div>
+    <div class="rescue-card"><div class="en">Could you say that more slowly?</div><div class="cn">能说慢一点吗？</div></div>
+    <div class="rescue-card"><div class="en">How do you spell that?</div><div class="cn">这个怎么拼？</div></div>
+    <div class="rescue-card"><div class="en">What does that mean?</div><div class="cn">那是什么意思？</div></div>
+    <div class="rescue-card"><div class="en">Could you write it down?</div><div class="cn">能写下来吗？</div></div>
+  </div>
+  <blockquote><p>学员最怕的不是不会说，是<strong>听不懂对方回什么</strong>。这五句是让对话能继续下去的刹车和重启键。</p></blockquote>
+</section>
+
+<!-- ================= 2. 场景总表 ================= -->
+<section id="overview">
+  <div class="sec-head"><div class="sec-num">02</div><h2>场景总表<em>Overview</em></h2></div>
+  <div class="card pad">
+    <div class="table-wrap">
+      <table class="overview">
+        <thead><tr><th style="width:3em">序号</th><th>场景</th><th>核心任务</th><th style="width:7em">难度</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="scene-cell"><a href="#s1"><b>点餐</b><span>Ordering food</span></a></td><td>点单、提要求、结账</td><td><span class="stars">★★☆☆☆</span></td></tr>
+          <tr><td class="num">2</td><td class="scene-cell"><a href="#s2"><b>超市结账</b><span>Supermarket checkout</span></a></td><td>找货、问价、付款</td><td><span class="stars">★★☆☆☆</span></td></tr>
+          <tr><td class="num">3</td><td class="scene-cell"><a href="#s3"><b>药店</b><span>Pharmacy</span></a></td><td>说症状、买药、问用法</td><td><span class="stars">★★★☆☆</span></td></tr>
+          <tr><td class="num">4</td><td class="scene-cell"><a href="#s4"><b>看医生</b><span>At the clinic</span></a></td><td>预约、描述症状、问注意事项</td><td><span class="stars">★★★★☆</span></td></tr>
+          <tr><td class="num">5</td><td class="scene-cell"><a href="#s5"><b>银行开户</b><span>At the bank</span></a></td><td>开户、问材料、问费用</td><td><span class="stars">★★★★☆</span></td></tr>
+          <tr><td class="num">6</td><td class="scene-cell"><a href="#s6"><b>电话预约</b><span>Phone call</span></a></td><td>报姓名、约时间、确认</td><td><span class="stars">★★★★★</span></td></tr>
+          <tr><td class="num">7</td><td class="scene-cell"><a href="#s7"><b>问路乘车</b><span>Directions &amp; transit</span></a></td><td>问路、换乘、买票</td><td><span class="stars">★★★☆☆</span></td></tr>
+          <tr><td class="num">8</td><td class="scene-cell"><a href="#s8"><b>租房看房</b><span>Renting</span></a></td><td>看房、问费用、问入住</td><td><span class="stars">★★★★☆</span></td></tr>
+          <tr><td class="num">9</td><td class="scene-cell"><a href="#s9"><b>学校沟通</b><span>At school</span></a></td><td>自我介绍、问表现、约见老师</td><td><span class="stars">★★★★★</span></td></tr>
+          <tr><td class="num">10</td><td class="scene-cell"><a href="#s10"><b>紧急情况</b><span>Emergency</span></a></td><td>报地址、说情况、求救</td><td><span class="stars">★★★☆☆</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p class="note">顺序不是随便排的：<strong>1–2 是"每天都要做、错了也没关系"的场景</strong>，先建立信心；<strong>6 和 9 是电话与陌生人场景，最难</strong>，放在中后段；<strong>10 单独练</strong>，因为它必须在紧张状态下也能说出。</p>
+</section>
+
+<!-- ================= 3. 十个场景 ================= -->
+<section id="scenes">
+  <div class="sec-head"><div class="sec-num">03</div><h2>十个场景<em>10 Situations</em></h2></div>
+
+  <!-- 1 -->
+  <article class="scn" id="s1" data-scn="1">
+    <div class="scn-head">
+      <div class="scn-badge">1</div>
+      <h3>点餐<span>Ordering food</span></h3>
+      <div class="scn-meta"><span class="diff">★★☆☆☆</span><span class="done-pill">已完成</span></div>
+    </div>
+    <div class="scn-body">
+      <p class="goal"><b>目标：</b>进店、点一份主食和一杯饮料、提一个要求、结账，全程不用中文。</p>
+      <table class="sent-table">
+        <thead><tr><th>#</th><th>英文句型</th><th>中文</th><th>什么时候用</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="en">Can I get a medium coffee, please?</td><td class="cn">我要一杯中杯咖啡，谢谢。</td><td class="use">点单开场（比 I want 自然）</td></tr>
+          <tr><td class="num">2</td><td class="en">For here or to go? — To go, please.</td><td class="cn">堂食还是带走？——带走，谢谢。</td><td class="use">店员必问，必须听懂</td></tr>
+          <tr><td class="num">3</td><td class="en">I'll have the chicken sandwich.</td><td class="cn">我要鸡肉三明治。</td><td class="use">点主餐</td></tr>
+          <tr><td class="num">4</td><td class="en">Can I get that without onions?</td><td class="cn">这个不要洋葱，可以吗？</td><td class="use">提要求</td></tr>
+          <tr><td class="num">5</td><td class="en">Can I have the bill, please?</td><td class="cn">可以结账吗？</td><td class="use">收尾</td></tr>
+        </tbody>
+      </table>
+
+      <div class="block-label">听力素材</div>
+      <ul class="src-list">
+        <li>Randall's ESL Cyber Listening Lab（<a href="https://www.esl-lab.com" target="_blank" rel="noopener">esl-lab.com</a>）→ Everyday Conversations → Restaurant</li>
+        <li>ESL Fast（<a href="https://www.eslfast.com" target="_blank" rel="noopener">eslfast.com</a>）→ Daily Conversations → Ordering Food</li>
+      </ul>
+
+      <div class="block-label">AI 角色扮演 · 复制即用</div>
+      <div class="prompt">You are a cashier at a coffee shop in Toronto. Task: I order a coffee and a sandwich, ask for no onions, and pay.<button class="copy">复制</button></div>
+
+      <div class="block-label">验收任务</div>
+      <ul class="check-list">
+        <li><input type="checkbox" data-k="s1-1"><span>看着菜单，说出三样东西的英文名</span></li>
+        <li><input type="checkbox" data-k="s1-2"><span>完成一次点单，其中包含一个 "without…" 的要求</span></li>
+        <li><input type="checkbox" data-k="s1-3"><span>听懂 "For here or to go?" 并正确回答</span></li>
+      </ul>
+      <div class="stuck"><b>常见卡壳</b><span>听不清店员问什么 → 直接用救场句 "Sorry, could you say that again?"，不要愣住。</span></div>
+    </div>
+  </article>
+
+  <!-- 2 -->
+  <article class="scn" id="s2" data-scn="2">
+    <div class="scn-head">
+      <div class="scn-badge">2</div>
+      <h3>超市结账<span>Supermarket checkout</span></h3>
+      <div class="scn-meta"><span class="diff">★★☆☆☆</span><span class="done-pill">已完成</span></div>
+    </div>
+    <div class="scn-body">
+      <p class="goal"><b>目标：</b>找到想买的东西、问价、付款、要袋子。</p>
+      <table class="sent-table">
+        <thead><tr><th>#</th><th>英文句型</th><th>中文</th><th>什么时候用</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="en">Where can I find the milk?</td><td class="cn">牛奶在哪一区？</td><td class="use">找不到货</td></tr>
+          <tr><td class="num">2</td><td class="en">How much is this?</td><td class="cn">这个多少钱？</td><td class="use">没标价</td></tr>
+          <tr><td class="num">3</td><td class="en">Do you have a loyalty card? — No, I don't.</td><td class="cn">有会员卡吗？——没有。</td><td class="use">收银台必问</td></tr>
+          <tr><td class="num">4</td><td class="en">Can I pay by card?</td><td class="cn">可以刷卡吗？</td><td class="use">付款</td></tr>
+          <tr><td class="num">5</td><td class="en">Can I have a bag, please?</td><td class="cn">可以给我一个袋子吗？</td><td class="use">要袋子（加拿大塑料袋收费）</td></tr>
+        </tbody>
+      </table>
+
+      <div class="block-label">听力素材</div>
+      <ul class="src-list">
+        <li>esl-lab 搜关键词 <em>Shopping</em></li>
+        <li>ESL Fast 搜 <em>At the Supermarket</em></li>
+      </ul>
+
+      <div class="block-label">AI 角色扮演 · 复制即用</div>
+      <div class="prompt">You are a cashier at a supermarket in Vancouver. Task: I buy milk and bread, answer about a loyalty card, and pay by card.<button class="copy">复制</button></div>
+
+      <div class="block-label">验收任务</div>
+      <ul class="check-list">
+        <li><input type="checkbox" data-k="s2-1"><span>在超市里问一次 "Where can I find…?" 并听懂回答</span></li>
+        <li><input type="checkbox" data-k="s2-2"><span>结账时正确回答会员卡问题</span></li>
+        <li><input type="checkbox" data-k="s2-3"><span>完整说一次 "Can I pay by card?"</span></li>
+      </ul>
+      <div class="stuck"><b>常见卡壳</b><span>收银员语速快、连着问三件事 → 只说 "Sorry?" 或 "Yes, please."，钱照付，不会出错。</span></div>
+    </div>
+  </article>
+
+  <!-- 3 -->
+  <article class="scn" id="s3" data-scn="3">
+    <div class="scn-head">
+      <div class="scn-badge">3</div>
+      <h3>药店<span>Pharmacy</span></h3>
+      <div class="scn-meta"><span class="diff">★★★☆☆</span><span class="done-pill">已完成</span></div>
+    </div>
+    <div class="scn-body">
+      <p class="goal"><b>目标：</b>描述症状、买到非处方药、问清用法和禁忌。</p>
+      <table class="sent-table">
+        <thead><tr><th>#</th><th>英文句型</th><th>中文</th><th>什么时候用</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="en">Do you have something for a headache?</td><td class="cn">有治头痛的药吗？</td><td class="use">开场</td></tr>
+          <tr><td class="num">2</td><td class="en">I have a cough and a sore throat.</td><td class="cn">我咳嗽，喉咙痛。</td><td class="use">说症状</td></tr>
+          <tr><td class="num">3</td><td class="en">How often should I take it?</td><td class="cn">多久吃一次？</td><td class="use">问用法</td></tr>
+          <tr><td class="num">4</td><td class="en">Is this okay with my blood pressure medicine?</td><td class="cn">这个能和我吃的降压药一起用吗？</td><td class="use">问禁忌（关键）</td></tr>
+          <tr><td class="num">5</td><td class="en">Do I need a prescription?</td><td class="cn">这个需要处方吗？</td><td class="use">确认能不能直接买</td></tr>
+        </tbody>
+      </table>
+
+      <div class="block-label">听力素材</div>
+      <ul class="src-list">
+        <li>esl-lab 搜关键词 <em>Health / Pharmacy</em></li>
+        <li>ESL Fast 搜 <em>At the Pharmacy</em></li>
+      </ul>
+
+      <div class="block-label">AI 角色扮演 · 复制即用</div>
+      <div class="prompt">You are a pharmacist in Toronto. Task: I describe a cough and sore throat, ask how often to take the medicine, and ask if it is safe with blood pressure medicine.<button class="copy">复制</button></div>
+
+      <div class="block-label">验收任务</div>
+      <ul class="check-list">
+        <li><input type="checkbox" data-k="s3-1"><span>说出三种症状（cough / fever / sore throat / headache 任选三）</span></li>
+        <li><input type="checkbox" data-k="s3-2"><span>问到药的用法（次数 + 时间）</span></li>
+        <li><input type="checkbox" data-k="s3-3"><span>问清 "Do I need a prescription?"</span></li>
+      </ul>
+      <div class="stuck"><b>常见卡壳</b><span>药名完全听不懂 → 手机拍照给药师看，说 <em>This one, please.</em> 比硬拼发音有效。</span></div>
+    </div>
+  </article>
+
+  <!-- 4 -->
+  <article class="scn" id="s4" data-scn="4">
+    <div class="scn-head">
+      <div class="scn-badge">4</div>
+      <h3>看医生<span>At the clinic</span></h3>
+      <div class="scn-meta"><span class="diff">★★★★☆</span><span class="done-pill">已完成</span></div>
+    </div>
+    <div class="scn-body">
+      <p class="goal"><b>目标：</b>电话或前台预约、向医生描述症状和起始时间、问清能不能上班。</p>
+      <table class="sent-table">
+        <thead><tr><th>#</th><th>英文句型</th><th>中文</th><th>什么时候用</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="en">I'd like to book an appointment.</td><td class="cn">我想预约。</td><td class="use">前台/电话开场</td></tr>
+          <tr><td class="num">2</td><td class="en">I have a fever and a headache.</td><td class="cn">我发烧，头痛。</td><td class="use">说症状</td></tr>
+          <tr><td class="num">3</td><td class="en">It started three days ago.</td><td class="cn">三天前开始的。</td><td class="use">医生必问时长</td></tr>
+          <tr><td class="num">4</td><td class="en">It hurts here.</td><td class="cn">这里疼。</td><td class="use">配合指位置</td></tr>
+          <tr><td class="num">5</td><td class="en">Am I okay to go to work?</td><td class="cn">我可以去上班吗？</td><td class="use">问注意事项</td></tr>
+        </tbody>
+      </table>
+
+      <div class="block-label">听力素材</div>
+      <ul class="src-list">
+        <li>esl-lab 搜关键词 <em>Doctor's Office</em></li>
+        <li>USA Learns（<a href="https://www.usalearns.org" target="_blank" rel="noopener">usalearns.org</a>）的 Everyday Life / Health 单元</li>
+      </ul>
+
+      <div class="block-label">AI 角色扮演 · 复制即用</div>
+      <div class="prompt">You are a doctor at a walk-in clinic in Toronto. Task: I describe a fever and headache that started three days ago, and ask whether I can go to work.<button class="copy">复制</button></div>
+
+      <div class="block-label">验收任务</div>
+      <ul class="check-list">
+        <li><input type="checkbox" data-k="s4-1"><span>说出症状 + 起始时间（两个信息缺一不可）</span></li>
+        <li><input type="checkbox" data-k="s4-2"><span>指出疼痛位置并说 "It hurts here."</span></li>
+        <li><input type="checkbox" data-k="s4-3"><span>问出一个问题（能不能上班 / 要不要吃药）</span></li>
+      </ul>
+      <div class="stuck"><b>常见卡壳</b><span>医生说太快 → "Sorry, could you say that more slowly?"；听不懂诊断名 → "What does that mean?"</span></div>
+    </div>
+  </article>
+
+  <!-- 5 -->
+  <article class="scn" id="s5" data-scn="5">
+    <div class="scn-head">
+      <div class="scn-badge">5</div>
+      <h3>银行开户<span>At the bank</span></h3>
+      <div class="scn-meta"><span class="diff">★★★★☆</span><span class="done-pill">已完成</span></div>
+    </div>
+    <div class="scn-body">
+      <p class="goal"><b>目标：</b>开一个支票账户、问清所需材料和费用、确认什么时候拿到卡。</p>
+      <table class="sent-table">
+        <thead><tr><th>#</th><th>英文句型</th><th>中文</th><th>什么时候用</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="en">I'd like to open a chequing account.</td><td class="cn">我想开一个支票账户。</td><td class="use">开场，说清目的</td></tr>
+          <tr><td class="num">2</td><td class="en">What do I need to bring?</td><td class="cn">我需要带什么材料？</td><td class="use">问清单</td></tr>
+          <tr><td class="num">3</td><td class="en">I don't have a Canadian ID yet — I have my passport.</td><td class="cn">我还没有加拿大证件，我有护照。</td><td class="use">说明身份（新移民常见）</td></tr>
+          <tr><td class="num">4</td><td class="en">Is there a monthly fee?</td><td class="cn">有月费吗？</td><td class="use">问费用（必问）</td></tr>
+          <tr><td class="num">5</td><td class="en">Can I get a debit card today?</td><td class="cn">今天能拿到借记卡吗？</td><td class="use">问结果</td></tr>
+        </tbody>
+      </table>
+
+      <div class="block-label">听力素材</div>
+      <ul class="src-list">
+        <li>esl-lab 搜关键词 <em>Banking</em></li>
+        <li>ESL Fast 搜 <em>At the Bank</em></li>
+      </ul>
+
+      <div class="block-label">AI 角色扮演 · 复制即用</div>
+      <div class="prompt">You are a bank teller in Toronto. Task: I open a chequing account, explain I only have a passport, ask about the monthly fee, and ask when I get my debit card.<button class="copy">复制</button></div>
+
+      <div class="block-label">验收任务</div>
+      <ul class="check-list">
+        <li><input type="checkbox" data-k="s5-1"><span>说清要开哪种账户（chequing / savings）</span></li>
+        <li><input type="checkbox" data-k="s5-2"><span>问出所需材料，并复述一遍给柜员确认</span></li>
+        <li><input type="checkbox" data-k="s5-3"><span>问出月费金额</span></li>
+      </ul>
+      <div class="stuck"><b>常见卡壳</b><span>听到 SIN、proof of address、void cheque 这类词 → 不要装懂，直接说 "Sorry, could you explain that in simple words?"</span></div>
+    </div>
+  </article>
+
+  <!-- 6 -->
+  <article class="scn" id="s6" data-scn="6">
+    <div class="scn-head">
+      <div class="scn-badge">6</div>
+      <h3>电话预约<span>Phone call</span></h3>
+      <div class="scn-meta"><span class="diff">★★★★★</span><span class="done-pill">已完成</span></div>
+    </div>
+    <div class="scn-body">
+      <p class="goal"><b>目标：</b>打电话报姓名、约一个时间、确认时间地点。这是全套里最难的场景。</p>
+      <table class="sent-table">
+        <thead><tr><th>#</th><th>英文句型</th><th>中文</th><th>什么时候用</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="en">Hi, this is Wei Li. I'm calling to book an appointment.</td><td class="cn">你好，我是李伟，我打电话来预约。</td><td class="use">开场必须先报名字</td></tr>
+          <tr><td class="num">2</td><td class="en">Is there anything available this week?</td><td class="cn">这周还有空位吗？</td><td class="use">问时间</td></tr>
+          <tr><td class="num">3</td><td class="en">Thursday morning works for me.</td><td class="cn">周四上午我可以。</td><td class="use">确认时间</td></tr>
+          <tr><td class="num">4</td><td class="en">Sorry, could you repeat the time?</td><td class="cn">麻烦重复一下时间。</td><td class="use">没听清（一定要敢问）</td></tr>
+          <tr><td class="num">5</td><td class="en">Thank you, see you then.</td><td class="cn">谢谢，到时见。</td><td class="use">收尾</td></tr>
+        </tbody>
+      </table>
+
+      <div class="block-label">听力素材</div>
+      <ul class="src-list">
+        <li>esl-lab 搜关键词 <em>Telephone</em></li>
+        <li>ESL Fast 搜 <em>Making an Appointment</em></li>
+      </ul>
+
+      <div class="block-label">AI 角色扮演 · 复制即用</div>
+      <div class="prompt">You are a receptionist answering the phone at a dental clinic. Task: I book an appointment for this week and confirm the time. Speak with a slightly unclear phone voice and repeat numbers once.<button class="copy">复制</button></div>
+
+      <div class="block-label">验收任务</div>
+      <ul class="check-list">
+        <li><input type="checkbox" data-k="s6-1"><span>电话里完整报出自己的名字和目的</span></li>
+        <li><input type="checkbox" data-k="s6-2"><span>约到一个具体时间，并复述确认</span></li>
+        <li><input type="checkbox" data-k="s6-3"><span>至少使用一次 "Could you repeat…?"</span></li>
+      </ul>
+      <div class="stuck"><b>常见卡壳</b><span>电话里听数字（时间、门牌号）极难 → 让对方重复，或说 "Could you text me the time?"。这一条要单独练。</span></div>
+    </div>
+  </article>
+
+  <!-- 7 -->
+  <article class="scn" id="s7" data-scn="7">
+    <div class="scn-head">
+      <div class="scn-badge">7</div>
+      <h3>问路与乘车<span>Directions &amp; transit</span></h3>
+      <div class="scn-meta"><span class="diff">★★★☆☆</span><span class="done-pill">已完成</span></div>
+    </div>
+    <div class="scn-body">
+      <p class="goal"><b>目标：</b>问路、听懂左右和距离、知道坐哪路车、在哪换乘、票价多少。</p>
+      <table class="sent-table">
+        <thead><tr><th>#</th><th>英文句型</th><th>中文</th><th>什么时候用</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="en">Excuse me, how do I get to the library?</td><td class="cn">请问图书馆怎么走？</td><td class="use">开场</td></tr>
+          <tr><td class="num">2</td><td class="en">Is it far from here?</td><td class="cn">离这儿远吗？</td><td class="use">判断要不要坐车</td></tr>
+          <tr><td class="num">3</td><td class="en">Which bus goes downtown?</td><td class="cn">哪路公交去市中心？</td><td class="use">乘车</td></tr>
+          <tr><td class="num">4</td><td class="en">Where do I transfer?</td><td class="cn">我在哪里换乘？</td><td class="use">换乘</td></tr>
+          <tr><td class="num">5</td><td class="en">How much is a ticket?</td><td class="cn">一张票多少钱？</td><td class="use">买票</td></tr>
+        </tbody>
+      </table>
+
+      <div class="block-label">听力素材</div>
+      <ul class="src-list">
+        <li>esl-lab 搜关键词 <em>Directions</em></li>
+        <li>ESL Fast 搜 <em>Asking for Directions</em></li>
+      </ul>
+
+      <div class="block-label">AI 角色扮演 · 复制即用</div>
+      <div class="prompt">You are a passerby on a street in Vancouver. Task: I ask how to get to the library, whether it is far, and which bus to take. Give directions in short sentences.<button class="copy">复制</button></div>
+
+      <div class="block-label">验收任务</div>
+      <ul class="check-list">
+        <li><input type="checkbox" data-k="s7-1"><span>问一次路，并复述对方的答案（"So, left at the lights?"）</span></li>
+        <li><input type="checkbox" data-k="s7-2"><span>问出该坐哪路车</span></li>
+        <li><input type="checkbox" data-k="s7-3"><span>问出票价</span></li>
+      </ul>
+      <div class="stuck"><b>常见卡壳</b><span>对方一口气说五个转弯 → 只抓 left / right / straight / block 四个词，其余靠复述确认。</span></div>
+    </div>
+  </article>
+
+  <!-- 8 -->
+  <article class="scn" id="s8" data-scn="8">
+    <div class="scn-head">
+      <div class="scn-badge">8</div>
+      <h3>租房看房<span>Renting an apartment</span></h3>
+      <div class="scn-meta"><span class="diff">★★★★☆</span><span class="done-pill">已完成</span></div>
+    </div>
+    <div class="scn-body">
+      <p class="goal"><b>目标：</b>看房、问清租金包含什么、押金多少、什么时候能入住。</p>
+      <table class="sent-table">
+        <thead><tr><th>#</th><th>英文句型</th><th>中文</th><th>什么时候用</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="en">I'm here to see the apartment.</td><td class="cn">我来看房的。</td><td class="use">开场</td></tr>
+          <tr><td class="num">2</td><td class="en">Is utilities included?</td><td class="cn">水电费包含在租金里吗？</td><td class="use">必问（差别很大）</td></tr>
+          <tr><td class="num">3</td><td class="en">How much is the deposit?</td><td class="cn">押金多少？</td><td class="use">必问</td></tr>
+          <tr><td class="num">4</td><td class="en">When can I move in?</td><td class="cn">什么时候可以入住？</td><td class="use">排时间</td></tr>
+          <tr><td class="num">5</td><td class="en">Can I see the lease first?</td><td class="cn">可以先看租约吗？</td><td class="use">保护自己</td></tr>
+        </tbody>
+      </table>
+
+      <div class="block-label">听力素材</div>
+      <ul class="src-list">
+        <li>esl-lab 搜关键词 <em>Renting an Apartment</em></li>
+        <li>ESL Fast 搜 <em>Apartment Hunting</em></li>
+      </ul>
+
+      <div class="block-label">AI 角色扮演 · 复制即用</div>
+      <div class="prompt">You are a landlord showing a one-bedroom apartment in Toronto. Task: I ask what the rent includes, the deposit, the move-in date, and ask to see the lease.<button class="copy">复制</button></div>
+
+      <div class="block-label">验收任务</div>
+      <ul class="check-list">
+        <li><input type="checkbox" data-k="s8-1"><span>问出"租金包含什么"</span></li>
+        <li><input type="checkbox" data-k="s8-2"><span>问出押金金额</span></li>
+        <li><input type="checkbox" data-k="s8-3"><span>要求看租约（这一条不许省）</span></li>
+      </ul>
+      <div class="stuck"><b>常见卡壳</b><span>hydro（电费）、lease、damage deposit 这些词第一次听必然不懂 → "Could you write that down?"</span></div>
+    </div>
+  </article>
+
+  <!-- 9 -->
+  <article class="scn" id="s9" data-scn="9">
+    <div class="scn-head">
+      <div class="scn-badge">9</div>
+      <h3>学校沟通<span>At school</span></h3>
+      <div class="scn-meta"><span class="diff">★★★★★</span><span class="done-pill">已完成</span></div>
+    </div>
+    <div class="scn-body">
+      <p class="goal"><b>目标：</b>向老师自我介绍、问孩子的课堂表现、约一次面谈、要求邮件沟通。</p>
+      <table class="sent-table">
+        <thead><tr><th>#</th><th>英文句型</th><th>中文</th><th>什么时候用</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="en">I'm the parent of Wei Li, in Grade 4.</td><td class="cn">我是四年级李伟的家长。</td><td class="use">开场必须说清身份</td></tr>
+          <tr><td class="num">2</td><td class="en">I'd like to talk about his reading.</td><td class="cn">我想谈谈他的阅读。</td><td class="use">说明来意</td></tr>
+          <tr><td class="num">3</td><td class="en">How is he doing in class?</td><td class="cn">他在班上表现怎么样？</td><td class="use">问表现</td></tr>
+          <tr><td class="num">4</td><td class="en">Can I book a parent-teacher meeting?</td><td class="cn">可以约一次家长会吗？</td><td class="use">约见</td></tr>
+          <tr><td class="num">5</td><td class="en">Could you send that to me by email?</td><td class="cn">可以邮件发给我吗？</td><td class="use">留书面记录</td></tr>
+        </tbody>
+      </table>
+
+      <div class="block-label">听力素材</div>
+      <ul class="src-list">
+        <li>esl-lab 搜关键词 <em>School</em></li>
+        <li>USA Learns（<a href="https://www.usalearns.org" target="_blank" rel="noopener">usalearns.org</a>）的 Everyday Life / School 单元</li>
+      </ul>
+
+      <div class="block-label">AI 角色扮演 · 复制即用</div>
+      <div class="prompt">You are a Grade 4 teacher in Toronto. Task: I introduce myself as a parent, ask how my son is doing, and book a meeting. Use simple school words and explain abbreviations.<button class="copy">复制</button></div>
+
+      <div class="block-label">验收任务</div>
+      <ul class="check-list">
+        <li><input type="checkbox" data-k="s9-1"><span>一句话说清"我是谁的家长、几年级"</span></li>
+        <li><input type="checkbox" data-k="s9-2"><span>问出孩子的一个具体表现（不是"好不好"，是"哪方面"）</span></li>
+        <li><input type="checkbox" data-k="s9-3"><span>约到一次面谈或拿到邮件联系方式</span></li>
+      </ul>
+      <div class="stuck"><b>常见卡壳</b><span>EAL、IEP、report card、parent-teacher interview 这类教育术语 → 直接问 "What does that mean?"，老师会很乐意解释。</span></div>
+    </div>
+  </article>
+
+  <!-- 10 -->
+  <article class="scn" id="s10" data-scn="10">
+    <div class="scn-head">
+      <div class="scn-badge">10</div>
+      <h3>紧急情况<span>Emergency</span></h3>
+      <div class="scn-meta"><span class="diff">★★★☆☆</span><span class="done-pill">已完成</span></div>
+    </div>
+    <div class="scn-body">
+      <p class="goal"><b>目标：</b>在最紧张的状态下，说出地址、说出发生了什么、要到帮助。这一课只有一个标准：<strong>说得出，不用漂亮</strong>。</p>
+      <table class="sent-table">
+        <thead><tr><th>#</th><th>英文句型</th><th>中文</th><th>什么时候用</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td class="en">I need help.</td><td class="cn">我需要帮助。</td><td class="use">万能开场</td></tr>
+          <tr><td class="num">2</td><td class="en">Call 911.</td><td class="cn">打 911。</td><td class="use">求助旁人</td></tr>
+          <tr><td class="num">3</td><td class="en">There is a fire / an accident.</td><td class="cn">着火了／出事故了。</td><td class="use">说事件</td></tr>
+          <tr><td class="num">4</td><td class="en">My address is 123 King Street.</td><td class="cn">我的地址是国王街 123 号。</td><td class="use"><strong>第一优先信息</strong></td></tr>
+          <tr><td class="num">5</td><td class="en">I need an ambulance.</td><td class="cn">我需要救护车。</td><td class="use">有人受伤</td></tr>
+        </tbody>
+      </table>
+
+      <div class="block-label">听力素材</div>
+      <ul class="src-list">
+        <li>esl-lab 搜关键词 <em>Emergency</em></li>
+        <li>USA Learns（<a href="https://www.usalearns.org" target="_blank" rel="noopener">usalearns.org</a>）的 Everyday Life / Emergency 单元</li>
+      </ul>
+
+      <div class="block-label">AI 角色扮演 · 复制即用</div>
+      <div class="prompt">You are a 911 operator in Canada. Task: I report an accident at my home. Ask for my address first, then what happened, then whether anyone is hurt. Speak calmly and slowly.<button class="copy">复制</button></div>
+
+      <div class="block-label">验收任务</div>
+      <ul class="check-list">
+        <li><input type="checkbox" data-k="s10-1"><span>不看稿，说出自己的完整地址</span></li>
+        <li><input type="checkbox" data-k="s10-2"><span>说出事件（fire / accident / someone is hurt）</span></li>
+        <li><input type="checkbox" data-k="s10-3"><span>说清"我需要救护车"或"我需要警察"</span></li>
+      </ul>
+      <div class="stuck"><b>常见卡壳</b><span>紧张时整句消失 → 只练两条硬句：<em>I need help.</em> 和 <em>My address is…</em>。这两条能在任何情况下救自己。</span></div>
+    </div>
+  </article>
+</section>
+
+<!-- ================= 4. AI 模板 ================= -->
+<section id="ai">
+  <div class="sec-head"><div class="sec-num">04</div><h2>AI 角色扮演模板<em>复制即用</em></h2></div>
+  <div class="card pad">
+    <p style="font-size:.9rem;color:var(--ink-2)">把这段发给任何免费的 AI 助手（Copilot、ChatGPT 免费版等），把方括号换成当天的场景：</p>
+    <div class="prompt" style="font-size:.82rem">You are [角色] in Canada. I am a 45-year-old learner from mainland China with very simple English. We will [任务]. Speak only in short, simple sentences at A2 level, one sentence at a time, and wait for my reply. After each of my replies, correct my mistake in one line starting with "Better:" and then continue the conversation. Never switch to Chinese, even if I ask.<button class="copy">复制</button></div>
+    <p style="margin:1rem 0 0;font-size:.9rem">每天一轮，10 分钟。好处是：<strong>可以无限重复、说错不丢脸、随时重来</strong>——对有开口恐惧的成人学员，这比任何教材都有效。</p>
+  </div>
+</section>
+
+<!-- ================= 5. 自评 ================= -->
+<section id="assess">
+  <div class="sec-head"><div class="sec-num">05</div><h2>进度自评表<em>Self-check</em></h2></div>
+  <p style="font-size:.9rem;color:var(--ink-2);margin-bottom:1rem">每完成一个场景，学员自己打勾。<strong>"能独立办成"才是真通过</strong>。勾选会保存在本机浏览器里，下次打开自动恢复。</p>
+  <div class="card pad">
+    <div class="table-wrap">
+      <table class="assess">
+        <thead><tr><th style="width:3em">#</th><th>场景</th><th class="c">能听懂对方</th><th class="c">能开口说</th><th class="c">能独立办成</th></tr></thead>
+        <tbody>
+          <tr data-row="1"><td class="num">1</td><td class="scene-cell"><b>点餐</b></td><td class="c"><input type="checkbox" data-k="a1-1"></td><td class="c"><input type="checkbox" data-k="a1-2"></td><td class="c"><input type="checkbox" data-k="a1-3"></td></tr>
+          <tr data-row="2"><td class="num">2</td><td class="scene-cell"><b>超市</b></td><td class="c"><input type="checkbox" data-k="a2-1"></td><td class="c"><input type="checkbox" data-k="a2-2"></td><td class="c"><input type="checkbox" data-k="a2-3"></td></tr>
+          <tr data-row="3"><td class="num">3</td><td class="scene-cell"><b>药店</b></td><td class="c"><input type="checkbox" data-k="a3-1"></td><td class="c"><input type="checkbox" data-k="a3-2"></td><td class="c"><input type="checkbox" data-k="a3-3"></td></tr>
+          <tr data-row="4"><td class="num">4</td><td class="scene-cell"><b>看医生</b></td><td class="c"><input type="checkbox" data-k="a4-1"></td><td class="c"><input type="checkbox" data-k="a4-2"></td><td class="c"><input type="checkbox" data-k="a4-3"></td></tr>
+          <tr data-row="5"><td class="num">5</td><td class="scene-cell"><b>银行</b></td><td class="c"><input type="checkbox" data-k="a5-1"></td><td class="c"><input type="checkbox" data-k="a5-2"></td><td class="c"><input type="checkbox" data-k="a5-3"></td></tr>
+          <tr data-row="6"><td class="num">6</td><td class="scene-cell"><b>电话预约</b></td><td class="c"><input type="checkbox" data-k="a6-1"></td><td class="c"><input type="checkbox" data-k="a6-2"></td><td class="c"><input type="checkbox" data-k="a6-3"></td></tr>
+          <tr data-row="7"><td class="num">7</td><td class="scene-cell"><b>问路乘车</b></td><td class="c"><input type="checkbox" data-k="a7-1"></td><td class="c"><input type="checkbox" data-k="a7-2"></td><td class="c"><input type="checkbox" data-k="a7-3"></td></tr>
+          <tr data-row="8"><td class="num">8</td><td class="scene-cell"><b>租房</b></td><td class="c"><input type="checkbox" data-k="a8-1"></td><td class="c"><input type="checkbox" data-k="a8-2"></td><td class="c"><input type="checkbox" data-k="a8-3"></td></tr>
+          <tr data-row="9"><td class="num">9</td><td class="scene-cell"><b>学校</b></td><td class="c"><input type="checkbox" data-k="a9-1"></td><td class="c"><input type="checkbox" data-k="a9-2"></td><td class="c"><input type="checkbox" data-k="a9-3"></td></tr>
+          <tr data-row="10"><td class="num">10</td><td class="scene-cell"><b>紧急</b></td><td class="c"><input type="checkbox" data-k="a10-1"></td><td class="c"><input type="checkbox" data-k="a10-2"></td><td class="c"><input type="checkbox" data-k="a10-3"></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:.8rem">
+      <button class="btn-print" onclick="resetAll()">清空所有勾选</button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 6. 资源 ================= -->
+<section id="res">
+  <div class="sec-head"><div class="sec-num">06</div><h2>免费素材总表<em>Free resources</em></h2></div>
+  <div class="res-grid">
+    <div class="res"><b>Randall's ESL Cyber Listening Lab</b><span class="url">esl-lab.com</span><span class="what">场景对话听力 + 理解题，按场景分类最全</span><a href="https://www.esl-lab.com" target="_blank" rel="noopener">打开网站</a></div>
+    <div class="res"><b>ESL Fast</b><span class="url">eslfast.com</span><span class="what">365 条日常短对话，语速友好</span><a href="https://www.eslfast.com" target="_blank" rel="noopener">打开网站</a></div>
+    <div class="res"><b>TalkEnglish</b><span class="url">talkenglish.com</span><span class="what">按场景分单元，句型拆解清楚</span><a href="https://www.talkenglish.com" target="_blank" rel="noopener">打开网站</a></div>
+    <div class="res"><b>USA Learns</b><span class="url">usalearns.org</span><span class="what">免费视频课程，含口语录音练习</span><a href="https://www.usalearns.org" target="_blank" rel="noopener">打开网站</a></div>
+    <div class="res"><b>Learning Chocolate</b><span class="url">learningchocolate.com</span><span class="what">场景词汇图片卡，零基础入门</span><a href="https://www.learningchocolate.com" target="_blank" rel="noopener">打开网站</a></div>
+    <div class="res"><b>CBC Learning English</b><span class="url">cbc.ca/learning-english</span><span class="what">加拿大慢速新闻，练"真实世界"听力</span><a href="https://www.cbc.ca/learning-english" target="_blank" rel="noopener">打开网站</a></div>
+  </div>
+</section>
+
+<p class="final-note">本材料可整册发放，也可按场景单页打印。<br>建议每个场景印一页，学员带在身边，办成一件就打个勾。</p>
+
+</main>
+
+<footer class="footer">
+  <b>日常场景教学包 · Daily Life Scenario Pack</b>
+  10 个生活场景 · 50 个核心句型 · 英中对照｜可整册发放，也可按场景单页打印
+</footer>
+
+<script>
+(function(){
+  var KEY='scenario-pack-v1';
+  var store={};
+  try{ store=JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ store={}; }
+
+  var boxes=[].slice.call(document.querySelectorAll('input[type=checkbox][data-k]'));
+  boxes.forEach(function(b){
+    if(store[b.dataset.k]) b.checked=true;
+    b.addEventListener('change',function(){
+      if(b.checked) store[b.dataset.k]=1; else delete store[b.dataset.k];
+      try{ localStorage.setItem(KEY,JSON.stringify(store)); }catch(e){}
+      render();
+    });
+  });
+
+  var pill=document.getElementById('pill');
+  var pbar=document.getElementById('pbar');
+
+  function render(){
+    var task=boxes.filter(function(b){ return b.dataset.k.charAt(0)==='s'; });
+    var done=task.filter(function(b){ return b.checked; }).length;
+    pill.textContent=done+' / '+task.length;
+
+    // per-scenario pill + self-assess row highlight
+    document.querySelectorAll('.scn').forEach(function(scn){
+      var n=scn.dataset.scn;
+      var items=[].slice.call(scn.querySelectorAll('input[type=checkbox]'));
+      scn.classList.toggle('is-done', items.length>0 && items.every(function(i){return i.checked;}));
+    });
+    document.querySelectorAll('.assess tr[data-row]').forEach(function(tr){
+      var items=[].slice.call(tr.querySelectorAll('input[type=checkbox]'));
+      tr.classList.toggle('row-done', items.every(function(i){return i.checked;}));
+    });
+  }
+
+  function onScroll(){
+    var h=document.documentElement;
+    var max=h.scrollHeight-h.clientHeight;
+    pbar.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+  }
+  document.addEventListener('scroll',onScroll,{passive:true});
+  onScroll(); render();
+
+  // copy buttons
+  document.querySelectorAll('.prompt .copy').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var text=btn.parentNode.textContent.replace('复制','').replace('已复制','').trim();
+      var ok=function(){
+        btn.textContent='已复制'; btn.classList.add('ok');
+        setTimeout(function(){ btn.textContent='复制'; btn.classList.remove('ok'); },1600);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(ok,fallback);
+      } else { fallback(); }
+      function fallback(){
+        var ta=document.createElement('textarea');
+        ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.select();
+        try{ document.execCommand('copy'); ok(); }catch(e){}
+        document.body.removeChild(ta);
+      }
+    });
+  });
+
+  window.resetAll=function(){
+    if(!confirm('确定清空所有勾选？')) return;
+    boxes.forEach(function(b){ b.checked=false; });
+    store={};
+    try{ localStorage.removeItem(KEY); }catch(e){}
+    render();
+  };
+})();
+</script>
+</body>
+</html>
